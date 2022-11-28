@@ -1,0 +1,47 @@
+- name: Check if file 1 exists
+  stat:
+    path: /tmp/serious_file1.txt
+  register: file1_register
+  tags:
+    - file1
+    - file2
+
+- name: Check if file 2 exits
+  stat:
+    path: /tmp/serious_file2.txt
+  register: file2_register
+  tags:
+    - file1
+    - file2
+
+- name: Delete file 1 if exists
+  file:
+    path: /tmp/serious_file1.txt
+    state: absent
+  when: file1_register.stat.exists
+  tags:
+    - file1
+    - file2
+
+- name: Delete file 2 if exists
+  file:
+    path: /tmp/serious_file2.txt
+    state: absent
+  when: file2_register.stat.exists
+  tags:
+    - file1
+    - file2
+
+- name: Set file 1 in place
+  copy:
+    src: serious_file1.txt
+    dest: /tmp/serious_file1.txt
+    group: vagrant
+    owner: vagrant
+  
+- name: Set file 2 in place
+  copy:
+    src: serious_file2.txt
+    dest: /tmp/serious_file2.txt
+    group: vagrant
+    owner: vagrant
