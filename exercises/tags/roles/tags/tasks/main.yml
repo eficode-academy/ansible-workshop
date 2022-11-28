@@ -38,6 +38,7 @@
     dest: /tmp/serious_file1.txt
     group: vagrant
     owner: vagrant
+  # define tag here
   
 - name: Set file 2 in place
   copy:
@@ -45,3 +46,4 @@
     dest: /tmp/serious_file2.txt
     group: vagrant
     owner: vagrant
+  # define tag here
