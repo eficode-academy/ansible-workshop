@@ -18,7 +18,7 @@ Let's create hello world example playbook with ansible against localhost
 6. In `roles/hello-world/tasks/main.yml` we need only 1 task so let's add it
  ```
  -name: Set hello.txt in place
-  <define here file module>
+  <define here copy module>
 ```` 
 7. Implement rest by checking the following link: https://docs.ansible.com/ansible/2.9/modules/copy_module.html
   * dest should be `/tmp/hello.txt`
@@ -35,7 +35,7 @@ Let's create hello world example playbook with ansible against localhost
       - hello-world
 ```
 
-9. Run the playbook with `ansible-playbook -u -k playbook.yml`
+9. Run the playbook with `ansible-playbook playbook.yml`
 
 10. Verify the results are correct by running `cat /tmp/hello.txt`, output should be
 ```
