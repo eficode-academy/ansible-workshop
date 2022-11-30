@@ -37,7 +37,7 @@ Vagrant.configure("2") do |config|
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
   # your network.
-  # config.vm.network "public_network"
+  config.vm.network "public_network"
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
@@ -67,5 +67,24 @@ Vagrant.configure("2") do |config|
      apt-get update
      apt-get install -y python3-pip
      pip3 install --upgrade pip
+     apt-get update
+     apt-get install -y \
+        ca-certificates \
+        curl \
+        gnupg \
+        lsb-release
+     mkdir -p /etc/apt/keyrings
+     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+     echo \
+        "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+        $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+     apt-get update
+     chmod a+r /etc/apt/keyrings/docker.gpg
+     apt-get update
+     apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+     usermod -aG docker vagrant
+     sed -i "/^[^#]*PasswordAuthentication[[:space:]]no/c\PasswordAuthentication yes" /etc/ssh/sshd_config
+     service sshd restart
+    
   SHELL
 end
