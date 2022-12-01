@@ -36,14 +36,14 @@
   copy:
     src: serious_file1.txt
     dest: /tmp/serious_file1.txt
-    group: vagrant
-    owner: vagrant
+    group: #define group here
+    owner: #define user here
   # define tag here
   
 - name: Set file 2 in place
   copy:
     src: serious_file2.txt
     dest: /tmp/serious_file2.txt
-    group: vagrant
-    owner: vagrant
+    group: #define group here
+    owner: #define user here
   # define tag here
